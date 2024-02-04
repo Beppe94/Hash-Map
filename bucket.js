@@ -6,18 +6,18 @@ class Bucket{
         this.tail = null;
     }
 
-    head() {
+    firstElement() {
         return this.head;
     }
 
-    tail() {
+    lastElement() {
         return this.tail;
     }
 
-    append(data) {
-        const newNode = new Node(data);
+    append(key, value) {
+        const newNode = new Node(key, value);
         
-        if(!this.head) {
+        if(this.firstElement() === null) {
             this.head = newNode;
             this.tail = newNode;
         } else {
@@ -36,6 +36,38 @@ class Bucket{
         }
 
         return counter;
+    }
+
+    findIndex(index) {
+        if(index > this.size()) return null;
+        if(index === 0) {
+            return this.head
+        } else {
+            let currNode = this.head;
+            for (let i = 0; i < index; i++) {
+                if(currNode !== null) {
+                    currNode = currNode.next;
+                }
+            }
+            return currNode
+        }
+    }
+
+    find(value) {
+        if(this.size() > 0) {
+            let currNode = this.head;
+            let index = 0;
+
+            while(currNode !== null) {
+                if(currNode.key === value) {
+                    return index;
+                }
+                index++;
+                currNode = currNode.next;
+            }
+        }
+
+        return null;
     }
 }
 

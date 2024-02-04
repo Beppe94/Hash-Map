@@ -12,6 +12,14 @@ class HashMap{
         }
     }
 
+    getBucket(index) {
+        if(index < 0 || index > this.bucketList.length) {
+            throw new Error("Attempted to acces index out of bound!");
+        }
+
+        return this.bucketList[index];
+    }
+
     hash(key) {
         let hashCode = 0;
         let primeNumber = 31;
@@ -20,15 +28,19 @@ class HashMap{
             hashCode += primeNumber * hashCode + key.charCodeAt(i);
         }
 
-        return hashCode % 16;
+        return hashCode;
     }
 
     set(key, value) {
-        const index = this.hash(key);
-        const length = this.size();
+        const bucketIndex = this.hash(key) % this.capacity;
+        const currBucket = this.getBucket(bucketIndex);
 
-        
-
+        if(currBucket.find(key) === null) {
+            currBucket.append(key, value);
+        } else {
+            let currNode = currBucket.findIndex(currBucket.find(key));
+            currNode.value = value;
+        }
     }
 
     size() {
@@ -39,21 +51,5 @@ class HashMap{
 
 const map = new HashMap();
 map.set('megazoid', 'dumb ass motherfucker');
-map.set('skdf', 'sdfsaaff');
-map.set('asdf', 'sdfsaaaff');
-map.set('dfsdfdf', 'ssssdfsaff');
-map.set('sdf', 'sdfsdddaff');
-map.set('fd', 'sdfsdfdfdfaff');
-map.set('s', 'fdf');
-map.set('s', 'dfs');
-map.set('as', 'sdfsdf');
-map.set('fs12df', 'as55fds');
-map.set('fs23df', 'as4fds');
-map.set('fsd34f', 'as4433fds');
-map.set('fsd32f', 'as3fds');
-map.set('fsd11f', 'asf22ds');
-map.set('fsd2f', 'asf333ds');
-map.set('fsd32f', 'asf222ds');
-map.set('fsd321f', 'asfds');
-console.log(map.size());
+
 console.log(map);
