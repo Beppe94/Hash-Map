@@ -25,7 +25,7 @@ class HashMap{
         let primeNumber = 31;
 
         for(let i = 0; i < key.length; i++) {
-            hashCode += primeNumber * hashCode + key.charCodeAt(i);
+            hashCode += primeNumber * hashCode + key.charCodeAt(i) % this.capacity;
         }
 
         return hashCode;
@@ -43,6 +43,13 @@ class HashMap{
         }
     }
 
+    get(key) {
+        const hashCode = this.hash(key) % this.capacity;
+        const currBucket = this.getBucket(hashCode);
+
+        return currBucket.head.value;
+    }
+
     size() {
         return this.bucketList.length;
     }
@@ -50,7 +57,7 @@ class HashMap{
     printNodes() {
         for(let i = 0; i < this.capacity; i++) {
             let current = this.bucketList[i];
-            while(current !== null) {
+            while(current != null) {
                 console.log(current);
                 current = current.next;
             }
@@ -60,3 +67,8 @@ class HashMap{
 }
 
 const map = new HashMap();
+map.set("mountain", "superpotato");
+map.set("overpower", "pergolato");
+map.set("mountain", "turbolenza");
+console.log(map.get("overpower"));
+map.printNodes()
