@@ -47,9 +47,16 @@ class HashMap{
         return this.bucketList.length;
     }
 
+    printNodes() {
+        for(let i = 0; i < this.capacity; i++) {
+            let current = this.bucketList[i];
+            while(current !== null) {
+                console.log(current);
+                current = current.next;
+            }
+        }
+    }
+
 }
 
 const map = new HashMap();
-map.set('megazoid', 'dumb ass motherfucker');
-
-console.log(map);
