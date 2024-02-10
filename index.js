@@ -47,7 +47,22 @@ class HashMap{
         const hashCode = this.hash(key) % this.capacity;
         const currBucket = this.getBucket(hashCode);
 
-        return currBucket.head.value;
+        if(currBucket.head) {
+            return currBucket.head.value;
+        }
+
+        return null;
+    }
+
+    has(key) {
+        const hashCode = this.hash(key) % this.capacity;
+        const currBucket = this.getBucket(hashCode);
+
+        if(currBucket.find(key) === 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     size() {
@@ -67,8 +82,9 @@ class HashMap{
 }
 
 const map = new HashMap();
-map.set("mountain", "superpotato");
+map.set("running", "superpotato");
 map.set("overpower", "pergolato");
 map.set("mountain", "turbolenza");
-console.log(map.get("overpower"));
-map.printNodes()
+//console.log(map.get("running"));
+//map.printNodes()
+console.log(map.has("mountain"))
