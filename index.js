@@ -80,6 +80,32 @@ class HashMap{
         return false;
     }
 
+    length() {
+        let counter = 0;
+
+        for(let i = 0; i < this.bucketList.length; i++) {
+            if(this.bucketList[i].head != null) {
+                counter++
+            }
+        }
+
+        return counter
+    }
+
+    clear() {
+        for (let i = 0; i < this.bucketList.length; i++) {
+            let current = this.bucketList[i].head;
+            while(current) {
+                let next = current.next;
+                current.next = null;
+                current = next;
+            }
+
+            this.bucketList[i].head = null;
+            this.bucketList[i].tail = null;
+        }
+    }
+
     size() {
         return this.bucketList.length;
     }
@@ -101,7 +127,10 @@ map.set("running", "superpotato");
 map.set("overpower", "pergolato");
 map.set("mountain", "turbolenza");
 //console.log(map.get("running"));
-map.printNodes()
 //console.log(map.has("mountain"))
-console.log(map.remove("potat"));
+//console.log(map.remove("potat"));
+//console.log(map.length())
+map.printNodes()
+map.clear()
+console.log("---------");
 map.printNodes()
