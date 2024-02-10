@@ -69,6 +69,36 @@ class Bucket{
 
         return null;
     }
+
+    remove(index) {
+        let current = this.head;
+        let previous = null;
+        let currIndex = 0;
+
+        if(index < 0 || index > this.size()) return;
+
+        if(index === 0) {
+            this.head = this.head.next;
+            if(!this.head) {
+                this.tail = null;
+            }
+            return;
+        }
+
+        while(current && currIndex < index) {
+            previous = current;
+            current = current.next;
+            currIndex++;
+        }
+
+        if(current) {
+            previous.next = current.next;
+
+            if(current === this.tail) {
+                this.tail = previous;
+            }
+        }
+    }
 }
 
 export default Bucket;
