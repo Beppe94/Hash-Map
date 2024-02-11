@@ -4,12 +4,9 @@ class HashMap{
 
     constructor() {
         this.capacity = 16;
-        this.bucketList = []
+        this.bucketList = Array.from({length: this.capacity}, () => new Bucket())
         this.loadFactor = 0.75;
 
-        for(let i = 0; i < this.capacity; i++) {
-            this.bucketList.push(new Bucket())
-        }
     }
 
     getBucket(index) {
@@ -33,14 +30,15 @@ class HashMap{
 
     set(key, value) {
         const bucketIndex = this.hash(key) % this.capacity;
-        const currBucket = this.getBucket(bucketIndex);
-
-        if(currBucket.find(key) === null) {
-            currBucket.append(key, value);
-        } else {
-            let currNode = currBucket.findIndex(currBucket.find(key));
-            currNode.value = value;
-        }
+        //const currBucket = this.getBucket(bucketIndex);
+//
+        //if(currBucket.find(key) === null) {
+        //    currBucket.append(key, value);
+        //} else {
+        //    let currNode = currBucket.findIndex(currBucket.find(key));
+        //    currNode.value = value;
+        //}
+        this.bucketList[bucketIndex].append(key,value);
     }
 
     get(key) {
@@ -84,8 +82,10 @@ class HashMap{
         let counter = 0;
 
         for(let i = 0; i < this.bucketList.length; i++) {
-            if(this.bucketList[i].head != null) {
-                counter++
+            let current = this.bucketList[i].head;
+            while(current) {
+                counter++;
+                current = current.next
             }
         }
 
@@ -111,13 +111,17 @@ class HashMap{
     }
 
     printNodes() {
+        let string = []
+
         for(let i = 0; i < this.capacity; i++) {
-            let current = this.bucketList[i];
-            while(current != null) {
-                console.log(current);
+            let current = this.bucketList[i].head;
+            while(current) {
+                string.push([current.key, current.value]);
                 current = current.next;
             }
         }
+
+        return string;
     }
 
 }
@@ -126,11 +130,15 @@ const map = new HashMap();
 map.set("running", "superpotato");
 map.set("overpower", "pergolato");
 map.set("mountain", "turbolenza");
+map.set("mountains", "turbolenza");
+
 //console.log(map.get("running"));
 //console.log(map.has("mountain"))
 //console.log(map.remove("potat"));
-//console.log(map.length())
-map.printNodes()
-map.clear()
-console.log("---------");
-map.printNodes()
+console.log(map.length())
+//console.log(map.printNodes())
+//map.clear()
+//console.log("---------");
+console.log(map.printNodes())
+
+//console.log(map);
