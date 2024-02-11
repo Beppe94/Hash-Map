@@ -124,21 +124,45 @@ class HashMap{
         return string;
     }
 
+    keys() {
+        const keys = [];
+
+        for(let i = 0; i < this.capacity; i++) {
+            let current = this.bucketList[i].head;
+            while(current) {
+                keys.push(current.key);
+                current = current.next;
+            }
+        }
+        
+        return keys;
+    }
+
+    values() {
+        const values = [];
+
+        for(let i = 0; i < this.capacity; i++) {
+            let current = this.bucketList[i].head;
+            while(current) {
+                values.push(current.value);
+                current = current.next;
+            }
+        }
+        
+        return values;
+    }
+
 }
 
 const map = new HashMap();
 map.set("running", "superpotato");
 map.set("overpower", "pergolato");
 map.set("mountain", "turbolenza");
-map.set("mountains", "turbolenza");
-
 //console.log(map.get("running"));
-//console.log(map.has("mountain"))
-//console.log(map.remove("potat"));
-console.log(map.length())
+//console.log(map.length())
 //console.log(map.printNodes())
 //map.clear()
 //console.log("---------");
-console.log(map.printNodes())
-
 //console.log(map);
+//console.log(map.values());
+console.log(map.printNodes())
