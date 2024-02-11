@@ -55,12 +55,17 @@ class HashMap{
     has(key) {
         const hashCode = this.hash(key) % this.capacity;
         const currBucket = this.getBucket(hashCode);
+        let head = currBucket.head;
 
-        if(currBucket.find(key) === 0) {
-            return true;
-        } else {
-            return false;
+        while(head) {
+            if(head.key === key) {
+                return true
+            }
+
+            head = head.next
         }
+
+        return false;
     }
 
     remove(key) {
@@ -158,6 +163,7 @@ const map = new HashMap();
 map.set("running", "superpotato");
 map.set("overpower", "pergolato");
 map.set("mountain", "turbolenza");
+map.set("mountains", "turbolenza");
 //console.log(map.get("running"));
 //console.log(map.length())
 //console.log(map.printNodes())
