@@ -10,7 +10,7 @@ class HashMap{
     }
 
     getBucket(index) {
-        if(index < 0 || index > this.bucketList.length) {
+        if(index < 0 || index >= this.bucketList.length) {
             throw new Error("Attempted to acces index out of bound!");
         }
 
